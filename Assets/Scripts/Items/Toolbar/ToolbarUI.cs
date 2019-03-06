@@ -30,11 +30,13 @@ public class ToolbarUI : MonoBehaviour {
             }
         }
 
-        // make WHILE loop here.
+        // make WHILE loop here?
         for (int i = 0; i < slots.Length; i++) {
             if (!slots[i].isTaken && itemsOnToolbar < toolbar.items.Count) {
                 slots[i].AddItem(toolbar.items[toolbar.items.Count - 1]);
                 itemsOnToolbar++;
+            } else if (!slots[i].isTaken) {
+                slots[i].RemoveItem();
             }
         }
     }

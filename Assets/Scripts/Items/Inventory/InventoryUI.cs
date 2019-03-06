@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class InventoryUI : MonoBehaviour {
+
     public Transform inventoryParent;
 
     Inventory inventory;
@@ -24,7 +25,7 @@ public class InventoryUI : MonoBehaviour {
 
         for (int i = 0; i < slots.Length; i++) {
 
-            if(slots[i].transform.GetChild(0).childCount > 0) {
+            if (slots[i].transform.GetChild(0).childCount > 0) {
                 itemsOnInventory++;
             }
         }

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
-{
+public class InventorySlot : MonoBehaviour {
     public Item item;
     public GameObject itemIconPrefab;
     public bool isTaken;
@@ -45,7 +44,7 @@ public class InventorySlot : MonoBehaviour
     }
 
     public void UseItem() {
-        if(item != null) {
+        if (item != null) {
             item.Use();
         }
     }

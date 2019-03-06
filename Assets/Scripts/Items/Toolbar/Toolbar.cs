@@ -26,8 +26,13 @@ public class Toolbar : MonoBehaviour {
     public bool Add(Item item) {
 
         if (items.Count >= slots) {
-            print("Not enough space in the toolbar.");
-            return false;
+
+            // try to add to the inventory
+            if (Inventory.instance.Add(item)) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         items.Add(item);
