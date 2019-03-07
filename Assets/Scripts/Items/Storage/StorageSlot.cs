@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ToolbarSlot : MonoBehaviour {
+public class StorageSlot : MonoBehaviour {
     public Item item;
     public GameObject itemIconPrefab;
     public bool isTaken;

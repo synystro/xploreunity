@@ -8,7 +8,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public static Item draggedItem;
 
     public static InventorySlot inventorySlot;
-    public static ToolbarSlot toolbarSlot;
+    public static StorageSlot storageSlot;
 
     public static bool aSwapped;
 
@@ -27,7 +27,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         GameObject button = transform.parent.gameObject;
         slotParent = button.transform.parent.gameObject;
 
-        if (slotParent.GetComponent<InventorySlot>()) { inventorySlot = slotParent.GetComponent<InventorySlot>(); } else if (slotParent.GetComponent<ToolbarSlot>()) { toolbarSlot = slotParent.GetComponent<ToolbarSlot>(); }
+        if (slotParent.GetComponent<InventorySlot>()) { inventorySlot = slotParent.GetComponent<InventorySlot>(); } else if (slotParent.GetComponent<StorageSlot>()) { storageSlot = slotParent.GetComponent<StorageSlot>(); }
 
         draggedItemGO = gameObject;
         startPosition = transform.position;
@@ -37,7 +37,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         transform.SetParent(transform.root);
 
         if (inventorySlot != null) { draggedItem = inventorySlot.item; }
-        else if (toolbarSlot != null) { draggedItem = toolbarSlot.item; }
+        else if (storageSlot != null) { draggedItem = storageSlot.item; }
 
     }
 
@@ -51,13 +51,13 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         canvasGroup.blocksRaycasts = true;
 
-        // if outside inventory/toolbar panel parent.
+        // if outside inventory/storage panel parent.
         if (transform.parent == startParent || transform.parent == transform.root) {
 
             transform.position = startPosition;
             transform.SetParent(startParent);
             //if(inventorySlot != null) { inventorySlot.isTaken = true; }
-            //else if(toolbarSlot != null) { toolbarSlot.isTaken = true; }
+            //else if(storageSlot != null) { storageSlot.isTaken = true; }
 
         } else {
             // if outside its original position and inside a slot remove it from its original slot.
@@ -65,10 +65,10 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     inventorySlot.RemoveItem();
                     inventorySlot.isTaken = false;
                     Inventory.instance.Remove(inventorySlot.item);
-            } else if (toolbarSlot != null && !aSwapped) {
-                    toolbarSlot.RemoveItem();
-                    toolbarSlot.isTaken = false;
-                    Toolbar.instance.Remove(toolbarSlot.item);
+            } else if (storageSlot != null && !aSwapped) {
+                    storageSlot.RemoveItem();
+                    storageSlot.isTaken = false;
+                    Storage.instance.Remove(storageSlot.item);
             }
         }
 
@@ -76,7 +76,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         draggedItem = null;
         draggedItemGO = null;
         inventorySlot = null;
-        toolbarSlot = null;
+        storageSlot = null;
         aSwapped = false;
 
     }

@@ -13,7 +13,7 @@ public class Resource : MonoBehaviour {
         bool wasPickedUp = false;
 
         for (int i = 0; i < maxAmount; i++) {
-            wasPickedUp = Toolbar.instance.Add(item);
+            wasPickedUp = Inventory.instance.Add(item);
             //Instantiate(item.itemPrefab, transform.position, Quaternion.identity);
             wasPickedUp = true;
         }

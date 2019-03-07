@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Toolbar : MonoBehaviour {
+public class Storage : MonoBehaviour {
 
     #region Singleton
 
-    public static Toolbar instance;
+    public static Storage instance;
 
     private void Awake() {
         if (instance != null) {
-            Debug.Log("More than one instance of Inventory found.");
+            Debug.Log("More than one instance of Storage found.");
             return;
         }
         instance = this;
@@ -19,14 +19,13 @@ public class Toolbar : MonoBehaviour {
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public int slots = 9;
+    public int slots = 12;
 
     public List<Item> items = new List<Item>();
 
     public bool Add(Item item) {
 
         if (items.Count >= slots) {
-
             // try to add to the inventory
             if (Inventory.instance.Add(item)) {
                 return true;

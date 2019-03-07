@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 public class ItemDropHandler : MonoBehaviour, IDropHandler {
 
     private InventorySlot inventorySlot;
-    private ToolbarSlot toolbarSlot;
+    private StorageSlot storageSlot;
 
     Inventory inventory;
-    Toolbar toolbar;
+    Storage toolbar;
 
     private void Start() {
         inventory = Inventory.instance;
-        toolbar = Toolbar.instance;
+        toolbar = Storage.instance;
     }
 
     public GameObject itemGO {
@@ -27,9 +27,9 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
     public void OnDrop(PointerEventData eventData) {
 
         if (transform.parent.GetComponent<InventorySlot>()) { inventorySlot = GetComponentInParent<InventorySlot>(); }
-        else if (transform.parent.GetComponent<ToolbarSlot>()) { toolbarSlot = GetComponentInParent<ToolbarSlot>(); }
+        else if (transform.parent.GetComponent<StorageSlot>()) { storageSlot = GetComponentInParent<StorageSlot>(); }
 
-        // if this script's GO is an inventorySlot or else if this script's GO is a toolbarSlot.
+        // if this script's GO is an inventorySlot or else if this script's GO is a storageSlot.
         if (inventorySlot != null) {
 
             // if empty inventory slot.
@@ -40,9 +40,9 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
                 inventorySlot.isTaken = true;
 
                 // if adding from toolbar.
-                if (ItemDragHandler.toolbarSlot != null) {
-                    inventory.Add(ItemDragHandler.toolbarSlot.item);
-                    toolbar.Remove(ItemDragHandler.toolbarSlot.item);
+                if (ItemDragHandler.storageSlot != null) {
+                    inventory.Add(ItemDragHandler.storageSlot.item);
+                    toolbar.Remove(ItemDragHandler.storageSlot.item);
                 }
 
             } else {
@@ -50,7 +50,7 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
                 // swap
                 ItemDragHandler.aSwapped = true;
 
-                if (ItemDragHandler.toolbarSlot != null) {
+                if (ItemDragHandler.storageSlot != null) {
 
                     // swap from inventory to toolbar slot.
                     SwapFromInventoryToToolbar();
@@ -64,14 +64,14 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
                 }
             }
 
-        } else if (toolbarSlot != null) {
+        } else if (storageSlot != null) {
 
             // if empty toolbar slot.
             if (!itemGO) {
 
                 ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
-                toolbarSlot.item = ItemDragHandler.draggedItem;
-                toolbarSlot.isTaken = true;
+                storageSlot.item = ItemDragHandler.draggedItem;
+                storageSlot.isTaken = true;
 
                 // if adding from inventory.
                 if(ItemDragHandler.inventorySlot != null) {
@@ -89,11 +89,11 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
 
                     SwapFromToolbarToInventory();
 
-                } else if (ItemDragHandler.toolbarSlot != null) {
+                } else if (ItemDragHandler.storageSlot != null) {
 
                     // swap between toolbar slots.
                     ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
-                    toolbarSlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.toolbarSlot.transform.GetChild(0));
+                    storageSlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.storageSlot.transform.GetChild(0));
 
                 }
             }
@@ -103,19 +103,19 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
     private void SwapFromInventoryToToolbar() {
 
         // add this inventorySlot's child GO to draghandler's toolbarsLot's child transform.
-        inventorySlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.toolbarSlot.transform.GetChild(0));
+        inventorySlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.storageSlot.transform.GetChild(0));
 
         // add toolbar's draggeditem to this inventorySlot's child.
         ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
 
         // actual inventory/toolbar swap.
         inventory.Remove(inventorySlot.item);
-        inventory.Add(ItemDragHandler.toolbarSlot.item);
-        toolbar.Remove(ItemDragHandler.toolbarSlot.item);
+        inventory.Add(ItemDragHandler.storageSlot.item);
+        toolbar.Remove(ItemDragHandler.storageSlot.item);
         toolbar.Add(inventorySlot.item);
 
         // exchange slots' slotted items. (maybe make this better later on)
-        ItemDragHandler.toolbarSlot.item = inventorySlot.item;
+        ItemDragHandler.storageSlot.item = inventorySlot.item;
         inventorySlot.item = ItemDragHandler.draggedItem;
 
     }
@@ -124,21 +124,21 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
 
         // swap from toolbar to inventory slot.
 
-        // add this toolbarSlot's child GO to draghandler's inventorySlot's child transform.
-        toolbarSlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.inventorySlot.transform.GetChild(0));
+        // add this storageSlot's child GO to draghandler's inventorySlot's child transform.
+        storageSlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.inventorySlot.transform.GetChild(0));
 
-        // add inventory's draggeditem to this toolbarSlot's child.
+        // add inventory's draggeditem to this storageSlot's child.
         ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
 
         // actual inventory/toolbar swap.
-        toolbar.Remove(toolbarSlot.item);
+        toolbar.Remove(storageSlot.item);
         toolbar.Add(ItemDragHandler.inventorySlot.item);
         inventory.Remove(ItemDragHandler.inventorySlot.item);
-        inventory.Add(toolbarSlot.item);
+        inventory.Add(storageSlot.item);
 
         // exchange slots' slotted items. (maybe make this better later on)
-        ItemDragHandler.inventorySlot.item = toolbarSlot.item;
-        toolbarSlot.item = ItemDragHandler.draggedItem;
+        ItemDragHandler.inventorySlot.item = storageSlot.item;
+        storageSlot.item = ItemDragHandler.draggedItem;
 
     }
 }

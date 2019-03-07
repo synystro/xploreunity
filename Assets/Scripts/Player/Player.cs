@@ -9,8 +9,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private float runSpeed;
 
     [Header("Inventory")]
-    public GameObject inventoryUI;
-    private GameObject inventoryPanel;
+    public GameObject inventoryPanel;
 
     private float currentSpeed;
 
@@ -26,9 +25,6 @@ public class Player : MonoBehaviour {
 
         // get animator component.
         anim = GetComponent<Animator>();
-
-        // get inventory panel.
-        inventoryPanel = inventoryUI.transform.GetChild(0).gameObject;
 
     }
 
@@ -52,9 +48,9 @@ public class Player : MonoBehaviour {
         // mouse input outside UI.
         if (Input.GetMouseButtonDown(0) & !EventSystem.current.IsPointerOverGameObject()) {
 
-            CheckForResourceOnClick();
+            CheckForObstacle();
 
-            CheckForDestructible();
+            CheckAboveGround();
 
             // get tile name on mouse click.
             //GetTileNameOnClick();
@@ -73,9 +69,7 @@ public class Player : MonoBehaviour {
         }
 
         // inventory.
-        if (Input.GetButtonDown("Inventory")) {
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-        }
+        if (Input.GetButtonDown("Inventory")) { inventoryPanel.SetActive(!inventoryPanel.activeSelf); }
 
         #endregion
 
@@ -94,28 +88,30 @@ public class Player : MonoBehaviour {
 
     }
 
-    private void CheckForDestructible() {
-        Collider2D destructible = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("Destructible"));
-        if(destructible != null) {
-            Destroy(destructible.gameObject);
+    private void CheckForObstacle() {
+
+        Collider2D obstacle = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("Obstacle"));
+
+        if (obstacle != null) {
+            // resource
+            if (obstacle.GetComponent<Resource>()) {
+                obstacle.GetComponent<Resource>().Extract();
+            } else if (obstacle.GetComponent<Chest>()) {
+                // chest
+                obstacle.GetComponent<Chest>().Interact();
+            }
+
         }
     }
 
-    private void CheckForResourceOnClick() {
+    private void CheckAboveGround() {
 
         Collider2D aboveGround = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("Aboveground"));
-        Collider2D obstacle = Physics2D.OverlapPoint(mousePos, LayerMask.GetMask("Obstacle"));
-
+      
         if (aboveGround != null) {
+            // resource.
             if (aboveGround.GetComponent<Resource>()) {
-                // get resource.
                 aboveGround.GetComponent<Resource>().Extract();
-            }
-        }
-        if (obstacle != null) {
-            if (obstacle.GetComponent<Resource>()) {
-                // get resource.
-                obstacle.GetComponent<Resource>().Extract();
             }
         }
     }
@@ -142,6 +138,7 @@ public class Player : MonoBehaviour {
     }
 
     private void FaceDirection() {
+
         // face up.
         if (inputDirection.x == 0 && inputDirection.y == 1) {
             anim.SetInteger("direction", 1);
@@ -178,6 +175,7 @@ public class Player : MonoBehaviour {
         if (inputDirection.x == 0 && inputDirection.y == 0) {
             anim.SetInteger("direction", 0);
         }
+
     }
 
 }
