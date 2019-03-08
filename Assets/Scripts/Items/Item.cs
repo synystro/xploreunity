@@ -7,15 +7,16 @@ public class Item : ScriptableObject {
 
     new public string name = "New Item";
     public int id = 0;
+    public Sprite blockSprite;
     public Sprite iconSprite;
     public int maxAmount = 0;
     public int minAmount = 0;
 
-    public virtual void Use() {
-        // use item.
-        // effect/action.
+    public virtual void Select() {
+        // select item.
 
-        Debug.Log("Using " + name);
+        Debug.Log("Selecting " + name);
+
     }
     
     public void RemoveFromIventory() {

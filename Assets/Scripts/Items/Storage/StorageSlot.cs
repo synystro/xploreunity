@@ -43,9 +43,9 @@ public class StorageSlot : MonoBehaviour {
         }
     }
 
-    public void UseItem() {
+    public void SelectItem() {
         if (item != null) {
-            item.Use();
+            item.Select();
         }
     }
 }

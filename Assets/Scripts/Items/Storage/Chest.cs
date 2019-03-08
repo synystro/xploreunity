@@ -61,8 +61,6 @@ public class Chest : MonoBehaviour {
 
     public void FillOrEmpty() {
 
-        print("being called");
-
         if(storage.items.Count > 0) {
             anim.SetInteger("state", 5);
         } else {

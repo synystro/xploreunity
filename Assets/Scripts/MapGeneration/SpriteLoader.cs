@@ -43,11 +43,6 @@ public class SpriteLoader : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     public Vector2[] GetTileUVs(Tile tile) {
 
         string key = tile.type.ToString();

@@ -26,7 +26,6 @@ public class InventorySlot : MonoBehaviour {
 
             }
         }
-
     }
 
     public void RemoveItem() {
@@ -41,11 +40,16 @@ public class InventorySlot : MonoBehaviour {
             Destroy(buttonTransform.GetChild(0).gameObject);
 
         }
+
     }
 
-    public void UseItem() {
+    public void SelectItem() {
+
         if (item != null) {
-            item.Use();
+            item.Select();
+        }
+        else {
+            Debug.Log("no item to use");
         }
     }
 }

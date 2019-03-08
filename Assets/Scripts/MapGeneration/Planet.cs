@@ -78,10 +78,6 @@ public class Planet : MonoBehaviour {
 
     }
 
-    void Update() {
-        
-    }
-
     void CreateTiles() {
 
         tiles = new Tile[width, height];

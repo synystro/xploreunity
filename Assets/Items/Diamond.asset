@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 3}
   name: Diamond
   id: 1
+  blockSprite: {fileID: 21300000, guid: 0601440d1236d1449b697238dc1da2ee, type: 3}
   iconSprite: {fileID: 21300000, guid: 1b160ead579032f49b592d55b776e31b, type: 3}
   maxAmount: 2
   minAmount: 1
