@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 0}
+  inventory: {fileID: 0}
 --- !u!114 &6339877983350240438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,11 +168,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StorageUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8232324682707503090, guid: 40e24d4ea1abafd4f92b91fe5000babd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8232324682707503091, guid: 40e24d4ea1abafd4f92b91fe5000babd,
         type: 3}
@@ -280,30 +276,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8232324682707503052, guid: 40e24d4ea1abafd4f92b91fe5000babd,
         type: 3}
-      propertyPath: storageSlotsParent
-      value: 
-      objectReference: {fileID: 4591527739986312472}
-    - target: {fileID: 8232324682707503052, guid: 40e24d4ea1abafd4f92b91fe5000babd,
-        type: 3}
       propertyPath: chest
       value: 
       objectReference: {fileID: 6339877983350240437}
-    - target: {fileID: 767051916025231670, guid: 40e24d4ea1abafd4f92b91fe5000babd,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40e24d4ea1abafd4f92b91fe5000babd, type: 3}
 --- !u!224 &5125773876851966941 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8232324682707503091, guid: 40e24d4ea1abafd4f92b91fe5000babd,
-    type: 3}
-  m_PrefabInstance: {fileID: 3827355447624139822}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &4591527739986312472 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 767051916025231670, guid: 40e24d4ea1abafd4f92b91fe5000babd,
     type: 3}
   m_PrefabInstance: {fileID: 3827355447624139822}
   m_PrefabAsset: {fileID: 0}

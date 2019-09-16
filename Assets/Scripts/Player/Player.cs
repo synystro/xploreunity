@@ -46,7 +46,7 @@ public class Player : MonoBehaviour {
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
         // mouse input outside UI.
-        if (Input.GetMouseButtonDown(0) & !EventSystem.current.IsPointerOverGameObject()) {
+        if (Input.GetMouseButtonDown(1) & !EventSystem.current.IsPointerOverGameObject()) {
 
             CheckForObstacle();
 

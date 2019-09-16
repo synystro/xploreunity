@@ -6,6 +6,7 @@ public class StorageSlot : MonoBehaviour {
     public GameObject itemIconPrefab;
     public bool isTaken;
 
+    private GameObject slotIcon;
     private Image icon;
 
     public void AddItem(Item newItem) {
@@ -22,7 +23,7 @@ public class StorageSlot : MonoBehaviour {
 
             if (transform.GetChild(0).childCount == 0) {
 
-                Instantiate(itemIconPrefab, transform.GetChild(0).transform);
+                slotIcon = Instantiate(itemIconPrefab, transform.GetChild(0).transform);
 
             }
         }
@@ -45,7 +46,7 @@ public class StorageSlot : MonoBehaviour {
 
     public void SelectItem() {
         if (item != null) {
-            item.Select();
+            item.Select(this.gameObject);
         }
     }
 }

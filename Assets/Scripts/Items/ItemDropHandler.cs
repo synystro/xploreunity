@@ -53,11 +53,16 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
                 if (ItemDragHandler.storageSlot != null) {
 
                     // swap from inventory to toolbar slot.
-                    SwapFromInventoryToToolbar();
+                    SwapFromInventoryToStorage();
 
                 } else if(ItemDragHandler.inventorySlot != null) {
 
                     // swap between inventory slots.
+
+                    Item temp = inventorySlot.item;
+                    inventorySlot.item = ItemDragHandler.draggedItem;
+                    ItemDragHandler.inventorySlot.item = temp;
+
                     ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
                     inventorySlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.inventorySlot.transform.GetChild(0));
 
@@ -91,7 +96,12 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
 
                 } else if (ItemDragHandler.storageSlot != null) {
 
-                    // swap between toolbar slots.
+                    // swap between storage slots.
+
+                    Item temp = storageSlot.item;
+                    storageSlot.item = ItemDragHandler.draggedItem;
+                    ItemDragHandler.storageSlot.item = temp;
+
                     ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
                     storageSlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.storageSlot.transform.GetChild(0));
 
@@ -100,7 +110,7 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
         }
     }
 
-    private void SwapFromInventoryToToolbar() {
+    private void SwapFromInventoryToStorage() {
 
         // add this inventorySlot's child GO to draghandler's toolbarsLot's child transform.
         inventorySlot.transform.GetChild(0).transform.GetChild(0).transform.SetParent(ItemDragHandler.storageSlot.transform.GetChild(0));

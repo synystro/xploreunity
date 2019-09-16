@@ -6,6 +6,7 @@ public class InventorySlot : MonoBehaviour {
     public GameObject itemIconPrefab;
     public bool isTaken;
 
+    private GameObject currentIconGO;
     private Image icon;
 
     public void AddItem(Item newItem) {
@@ -22,7 +23,7 @@ public class InventorySlot : MonoBehaviour {
 
             if (transform.GetChild(0).childCount == 0) {
 
-                Instantiate(itemIconPrefab, transform.GetChild(0).transform);
+                currentIconGO = Instantiate(itemIconPrefab, transform.GetChild(0).transform);
 
             }
         }
@@ -46,7 +47,7 @@ public class InventorySlot : MonoBehaviour {
     public void SelectItem() {
 
         if (item != null) {
-            item.Select();
+            item.Select(this.gameObject);
         }
         else {
             Debug.Log("no item to use");

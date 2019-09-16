@@ -8,6 +8,8 @@ public class MeshData {
     public List<Vector2> UVs;
     public List<int> triangles;
 
+    private float offset;
+
     public MeshData(int x, int y, int width, int height) {
 
         vertices = new List<Vector3>();

@@ -3,6 +3,7 @@
 public class Chest : MonoBehaviour {
 
     public GameObject hud;
+    public GameObject inventory;
 
     private Transform storageUI_T;
     private GameObject storageUI_GO;
@@ -13,7 +14,6 @@ public class Chest : MonoBehaviour {
 
     private bool isOpen;
 
-    // Start is called before the first frame update
     private void Start()
     {
         storageUI_T = this.transform.GetChild(0);
@@ -42,6 +42,7 @@ public class Chest : MonoBehaviour {
                 storageUI_T.SetParent(hud.transform, false);
                 storageUI_GO.SetActive(!storageUI_GO.activeSelf);
             }
+            inventory.SetActive(true);
             isOpen = true;
         } else {
             if(storage.items.Count > 0) {
@@ -55,6 +56,7 @@ public class Chest : MonoBehaviour {
                 storageUI_T.SetParent(this.transform, false);
                 storageUI_GO.SetActive(!storageUI_GO.activeSelf);
             }
+            inventory.SetActive(false);
             isOpen = false;
         }
     }
