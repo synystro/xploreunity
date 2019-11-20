@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 9122667614710208064, guid: faafc6246b7ed204e9ce4da4266702f4,
     type: 3}
-  blockPrefab: {fileID: 5862596568393803053, guid: f30f94dd83a90504388041bd01fe0f05,
+  blockPrefab: {fileID: 5862596568393803053, guid: 6ecfc67bbbfd96544b90169ce73b71c3,
     type: 3}
   name: Diamond
   id: 1

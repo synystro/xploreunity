@@ -15,14 +15,13 @@ public class Item : ScriptableObject {
     public virtual void Select(GameObject slot) {
         // select item.
 
-        //Debug.Log("Selecting " + name);
-        if (itemPrefab.GetComponent<PlaceableBlock>()) {
+        // check if its a placeable block, if yes then grab it.
+        if (itemPrefab.GetComponent<PlaceableBlock>())
             itemPrefab.GetComponent<PlaceableBlock>().Grab(blockPrefab, slot);
-        }
     }
     
     public void RemoveFromIventory() {
-
+        // remove item from inventory instance.
         Inventory.instance.Remove(this);
     }
     

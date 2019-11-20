@@ -1230,7 +1230,7 @@ MonoBehaviour:
   width: 90
   height: 90
   seed: 585
-  randomSeed: 0
+  randomSeed: 1
   frequency: 12
   amplitude: 5
   lacunarity: 0.12

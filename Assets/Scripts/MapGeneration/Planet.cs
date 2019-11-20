@@ -195,10 +195,6 @@ public class Planet : MonoBehaviour {
 
     public Tile GetTileAt(int x, int y) {
 
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-
-            return new Tile(Tile.Type.Void);
-        }
-        return tiles[x, y];
+        return x < 0 || x >= width || y < 0 || y >= height ? new Tile(Tile.Type.Void) : tiles[x, y];
     }
 }

@@ -22,7 +22,7 @@ public class Alana : MonoBehaviour {
         // load AudioSource.
         audio = GetComponent<AudioSource>();
 
-        // load welcome back audio.
+        // load welcome back audio files.
         welcomeBackSir = Resources.LoadAll<AudioClip>("Audio/Alana/WelcomeBackSir");
 
     }

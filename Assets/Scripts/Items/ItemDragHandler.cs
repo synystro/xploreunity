@@ -12,10 +12,8 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public static bool aSwapped;
 
-    private GameObject slotParent;
-
-    Vector3 startPosition;
-    Transform startParent;
+    Vector3 originalPosition;
+    Transform originalParent;
     CanvasGroup canvasGroup;
 
     private void Start() {
@@ -23,44 +21,57 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
+        // set buttonGO GO.
+        GameObject buttonGO = transform.parent.gameObject;
+        // set slot GO.
+        GameObject slotGO = buttonGO.transform.parent.gameObject;
 
-        GameObject button = transform.parent.gameObject;
-        slotParent = button.transform.parent.gameObject;
+        // if it's from inventory.
+        if (slotGO.GetComponent<InventorySlot>())
+            inventorySlot = slotGO.GetComponent<InventorySlot>();
+        // if it's from storage (i.e. chest, box, etc)
+        else if (slotGO.GetComponent<StorageSlot>())
+            storageSlot = slotGO.GetComponent<StorageSlot>();
 
-        if (slotParent.GetComponent<InventorySlot>()) { inventorySlot = slotParent.GetComponent<InventorySlot>(); } else if (slotParent.GetComponent<StorageSlot>()) { storageSlot = slotParent.GetComponent<StorageSlot>(); }
-
+        // set this gameobject as the dragged item.
         draggedItemGO = gameObject;
-        startPosition = transform.position;
-        startParent = transform.parent;
+        // check if it's an inventory item.
+        if (inventorySlot != null)
+            draggedItem = inventorySlot.item;
+        // check if it's a storage item.
+        else if (storageSlot != null)
+            draggedItem = storageSlot.item;
+
+        // remember its start position.
+        originalPosition = transform.position;
+        // remember its original parent.
+        originalParent = transform.parent;
+        // canvas allows raycasts.
         canvasGroup.blocksRaycasts = false;
 
+        // detach it from its original parent and set the HUD as its parent.
         transform.SetParent(transform.root);
-
-        if (inventorySlot != null) { draggedItem = inventorySlot.item; }
-        else if (storageSlot != null) { draggedItem = storageSlot.item; }
 
     }
 
     public void OnDrag(PointerEventData eventData) {
-
+        // drag this item to mouse position.
         transform.position = Input.mousePosition;
-
     }
 
     public void OnEndDrag(PointerEventData eventData) {
 
+        // canvas blocks raycasts again.
         canvasGroup.blocksRaycasts = true;
 
-        // if outside inventory/storage panel parent.
-        if (transform.parent == startParent || transform.parent == transform.root) {
+        // if its current parent is its original parent or the HUD, move it back to its original slot.
+        if (transform.parent == originalParent || transform.parent == transform.root) {
 
-            transform.position = startPosition;
-            transform.SetParent(startParent);
-            //if(inventorySlot != null) { inventorySlot.isTaken = true; }
-            //else if(storageSlot != null) { storageSlot.isTaken = true; }
+            transform.position = originalPosition;
+            transform.SetParent(originalParent);
 
         } else {
-            // if outside its original position and inside a slot remove it from its original slot.
+            // if outside its original position and inside an empty slot, remove it from its original slot.
             if (inventorySlot != null && !aSwapped) {
                     inventorySlot.RemoveItem();
                     inventorySlot.isTaken = false;

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ItemDropHandler : MonoBehaviour, IDropHandler {
@@ -15,25 +14,27 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
         toolbar = Storage.instance;
     }
 
-    public GameObject itemGO {
+    public GameObject ItemGO {
         get {
-            if (transform.childCount > 0) {
+            if (transform.childCount > 0)
                 return transform.GetChild(0).gameObject;
-            }
-            return null;
+            else
+                return null;
         }
     }
 
     public void OnDrop(PointerEventData eventData) {
 
-        if (transform.parent.GetComponent<InventorySlot>()) { inventorySlot = GetComponentInParent<InventorySlot>(); }
-        else if (transform.parent.GetComponent<StorageSlot>()) { storageSlot = GetComponentInParent<StorageSlot>(); }
+        if (transform.parent.GetComponent<InventorySlot>())
+            inventorySlot = GetComponentInParent<InventorySlot>();
+        else if (transform.parent.GetComponent<StorageSlot>())
+            storageSlot = GetComponentInParent<StorageSlot>();
 
         // if this script's GO is an inventorySlot or else if this script's GO is a storageSlot.
         if (inventorySlot != null) {
 
             // if empty inventory slot.
-            if (!itemGO) {
+            if (!ItemGO) {
 
                 ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
                 inventorySlot.item = ItemDragHandler.draggedItem;
@@ -72,7 +73,7 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler {
         } else if (storageSlot != null) {
 
             // if empty toolbar slot.
-            if (!itemGO) {
+            if (!ItemGO) {
 
                 ItemDragHandler.draggedItemGO.transform.SetParent(this.transform);
                 storageSlot.item = ItemDragHandler.draggedItem;
